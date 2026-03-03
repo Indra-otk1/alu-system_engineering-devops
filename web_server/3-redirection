@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # based on 1-install_nginx_web_server
 apt-get update -y
 apt-get install -y nginx
