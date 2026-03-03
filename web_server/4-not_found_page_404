@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# based on 3-redirection with custom 404 page
+apt-get update -y
+apt-get install -y nginx
+
+# create custom homepage
+echo "Holberton School for the win!" > /var/www/html/index.html
+
+# create custom 404 error page
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+
+# update nginx config with redirect and 404 error page handling
+sed -i 's|root /var/www/html;|root /var/www/html;\n    error_page 404 /404.html;\n    location /redirect_me {\n        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n    }|' /etc/nginx/sites-available/default
+
+# start or restart nginx without systemctl
+service nginx restart
