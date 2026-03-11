@@ -4,7 +4,7 @@
 apt-get update -y
 apt-get install -y haproxy
 
-# Enable HAProxy service
+# Enable HAProxy
 sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
 
 # Configure HAProxy
@@ -12,12 +12,12 @@ cat <<EOF >> /etc/haproxy/haproxy.cfg
 
 frontend http_front
     bind *:80
-    default_backend web_servers
+    default_backend web_back
 
-backend web_servers
+backend web_back
     balance roundrobin
-    server web-01 18.212.192.18:80 check
-    server web-02 52.90.174.46:80 check
+    server web-01 172.31.24.101:80 check
+    server web-02 172.31.20.233:80 check
 EOF
 
 service haproxy restart
