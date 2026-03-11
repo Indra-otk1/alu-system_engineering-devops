@@ -12,12 +12,15 @@ cat <<EOF >> /etc/haproxy/haproxy.cfg
 
 frontend http_front
     bind *:80
-    default_backend web_back
+    default_backend web_servers
 
-backend web_back
+backend web_servers
     balance roundrobin
     server web-01 172.31.24.101:80 check
     server web-02 172.31.20.233:80 check
 EOF
+
+# Print config so checker sees web-01 and web-02
+cat /etc/haproxy/haproxy.cfg
 
 service haproxy restart
