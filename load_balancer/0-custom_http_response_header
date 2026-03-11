@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
-# Configure Nginx with a custom HTTP response header
-# shellcheck disable=SC2154
+# Install nginx and configure a custom HTTP response header
 
-# Install nginx
 apt-get update -y
 apt-get install nginx -y
 
-# Get hostname
 HOSTNAME=$(hostname)
 
-# Add custom header to nginx default site
-sed -i "/server_name _;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
+sed -i "s/server_name _;/server_name _;\n\tadd_header X-Served-By $HOSTNAME;/" /etc/nginx/sites-available/default
 
-# Restart nginx
 systemctl restart nginx
