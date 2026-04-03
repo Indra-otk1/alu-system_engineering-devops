@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-# Start nginx
-service nginx start
+# Ensure nginx is running and listening on port 80 on all IPv4 addresses
+sed -i 's/listen 80 default_server;/listen 0.0.0.0:80 default_server;/' /etc/nginx/sites-available/default
+service nginx restart
